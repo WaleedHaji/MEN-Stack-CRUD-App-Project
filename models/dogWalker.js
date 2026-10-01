@@ -31,6 +31,10 @@ const dogWalkerSchema = new mongoose.Schema({
     idVerification: {
         type: String,
         required: true,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 
 },{timestamps: true})

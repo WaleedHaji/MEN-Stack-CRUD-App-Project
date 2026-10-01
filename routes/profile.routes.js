@@ -70,7 +70,39 @@ router.put('/edit', isSignedIn, async (req, res) => {
 })
 
 
+router.delete('/delete', isSignedIn, async (req, res) => {
+    const userId = req.session.user._id
 
+    
+    await User.findByIdAndUpdate(
+        userId,
+        { isDeleted: true }
+    )
+
+   
+    if (req.session.user.userRole === 'dog') {
+
+        await DogOwner.findOneAndUpdate(
+            { owner: userId },
+            { isDeleted: true }
+        )
+
+    } else if (req.session.user.userRole === 'dogWalker') {
+
+        await DogWalker.findOneAndUpdate(
+            { owner: userId },
+            { isDeleted: true }
+        )
+    }
+
+    req.session.destroy((err) => {
+        if (err) {
+            return res.send('Something went wrong')
+        }
+
+        res.redirect('/')
+    })
+})
 
 
 module.exports = router;
