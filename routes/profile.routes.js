@@ -10,6 +10,7 @@ router.get('/', isSignedIn,async (req,res)=>{
     let profile
     if(req.session.user.userRole == 'dog'){
         profile = await DogOwner.findOne({owner: req.session.user._id})
+
     }
     else{
         profile = await DogWalker.findOne({owner: req.session.user._id})
@@ -31,18 +32,44 @@ router.get('/edit', isSignedIn, async (req, res) => {
 })
 
 
-// router.put('/:listingId', async (req,res)=>{
-//     const {streetAddress, city, price, size} = req.body
-//     //It's like saying const streetAddress = req.body.streetAddress
-//     // This is to simplify the objects at the bottom in the .findByIdAndUpdate(req...., {streetAdd: streetAdd})
-//     const updatedListing = await listing.findByIdAndUpdate(req.params.listingId, {
-//         streetAddress: streetAddress,
-//         city: city,
-//         price: price,
-//         size: size
-//     })
-//     res.redirect('/listings') 
-// })
+router.put('/edit', isSignedIn, async (req, res) => {
+
+    let profile
+
+    if (req.session.user.userRole === 'dog') {
+
+        profile = await DogOwner.findOneAndUpdate(
+            { owner: req.session.user._id },
+            {
+                name: req.body.name,
+                breed: req.body.breed,
+                age: req.body.age,
+                personality: req.body.personality,
+                size: req.body.size,
+                descriptionOwner: req.body.descriptionOwner
+            },
+            { new: true }
+        )
+
+    } else {
+
+        profile = await DogWalker.findOneAndUpdate(
+            { owner: req.session.user._id },
+            {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                description: req.body.description
+            },
+            { new: true }
+        )
+    }
+
+    console.log('UPDATED PROFILE:', profile)
+
+    res.redirect('/userprofile')
+})
+
+
 
 
 

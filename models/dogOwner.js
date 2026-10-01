@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const dogOwnerSchema = new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
     breed: {
         type: String,
         default: "Pure Bred",
@@ -22,6 +26,10 @@ const dogOwnerSchema = new mongoose.Schema({
     owner:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    isDeleted: {
+    type: Boolean,
+    default: false
     }
 
 },{timestamps: true})

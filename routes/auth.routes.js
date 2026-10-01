@@ -30,6 +30,7 @@ router.post("/sign-up", async (req, res) => {
 
   if(user.userRole === 'dog'){
     const dogProfile = await dogOwner.create({
+        name: req.body.name,
         breed: req.body.breed,
         age: req.body.age,
         personality: req.body.personality,
