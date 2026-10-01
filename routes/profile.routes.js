@@ -19,11 +19,15 @@ router.get('/', isSignedIn,async (req,res)=>{
 })
 
 router.get('/edit', isSignedIn, async (req, res) => {
-    const foundUser = await User.findById(req.session.user._id)
+    let profile
+    if(req.session.user.userRole == 'dog'){
+        profile = await DogOwner.findOne({owner: req.session.user._id})
+    }
+    else{
+        profile = await DogWalker.findOne({owner: req.session.user._id})
+    }
 
-    res.render('profiles/update-profile.ejs', {
-        user: foundUser
-    })
+    res.render('profiles/update-profile.ejs', {profile, user:req.session.user})
 })
 
 
