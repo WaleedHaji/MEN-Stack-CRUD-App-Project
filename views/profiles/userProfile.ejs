@@ -12,24 +12,36 @@
     <h1>User Profile</h1>
 
     <h2> <%= user.username %>'s Profile </h2>
-    <a href="/userprofile/edit">Edit Profile</a>
+
 
     <% if(user.userRole === 'dog'){ %> 
 
-        <p>Name: <%= profile.name %></p> 
-        <p>Breed: <%= profile.breed %></p>
-         <p>Age: <%= profile.age %></p>
-         <p>Personality: <%= profile.personality %></p>
-         <p>Size: <%= profile.size %></p>
-         <p>Description: <%= profile.descriptionOwner %></p>
+        <% for( oneDog of profile ) { %>
+    
+         <h3>Name: <%= oneDog.name %></h3> 
+         <a href="/userprofile/dog/<%= oneDog._id %>">View details</a>
+         <p>Breed: <%= oneDog.breed %></p>
+         <p>Age: <%= oneDog.age %></p>
+         
+         <% } %>
+
+        <a href="/userprofile/add-dog">
+            <button type="button">Add a Dog</button>
+        </a>
+         
          
         <% }else{ %>
+         <a href="/userprofile/edit">Edit Profile</a>
          <p>Full Name: <%= profile.firstName %> <%= profile.lastName %></p>
          <p>Walker License No.: <%= profile.walkerLicenseNo %></p>
          <p>Description: <%= profile.description %></p>
 
         <% }%>
       
+        <br><br>
+        <form action="/userprofile/delete?_method=DELETE" method="POST">
+            <button type="submit">Delete Entire Account</button>
+        </form>
 
 </body>
 </html>

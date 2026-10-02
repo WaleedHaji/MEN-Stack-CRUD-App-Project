@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Dog</title>
+</head>
+
+<body>
+
+    <h1>Add a Dog</h1>
+
+    <form action="/userprofile/add-dog" method="POST">
+
+        <label for="name">Dog Name:</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            required
+        >
+
+        <br><br>
+
+        <label for="breed">Breed:</label>
+        <input
+            type="text"
+            id="breed"
+            name="breed"
+        >
+
+        <br><br>
+
+        <label for="age">Age:</label>
+        <input
+            type="number"
+            id="age"
+            name="age"
+        >
+
+        <br><br>
+
+        <label for="personalityInput">Personality:</label>
+        <select name="personality" id="personalityInput">
+            <option value="" disabled selected>-Select one-</option>
+            <option value="friendly">Friendly</option>
+            <option value="shy">Shy</option>
+            <option value="aggressive">Aggressive</option>
+            <option value="neutral">Neutral</option>
+            <option value="hyper">Hyper</option>
+        </select>
+
+        <br><br>
+
+        <label for="sizeInput">Size:</label>
+        <select name="size" id="sizeInput">
+            <option value="" disabled selected>-Select one-</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+        </select>
+
+        <br><br>
+
+        <label for="descriptionOwner">
+            Description:
+        </label>
+
+        <textarea
+            id="descriptionOwner"
+            name="descriptionOwner"
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Add Dog
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/userprofile">Cancel</a>
+
+</body>
+</html>

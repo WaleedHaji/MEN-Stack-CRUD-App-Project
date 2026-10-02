@@ -19,8 +19,19 @@ const userSchema = new mongoose.Schema({
   isDeleted: {
     type: Boolean,
     default: false
-  }
+  },
+  location: {
+    type: {
+        type: String,
+        enum: ['Point']
+    },
+    coordinates: {
+        type: [Number]
+    }
+}
 }, {timestamps: true});
+
+userSchema.index({ location: '2dsphere' })
 
 const User = mongoose.model("User", userSchema);
 

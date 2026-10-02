@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Details</title>
+</head>
+<body>
+    
+    <%- include('../partials/navbar') %>
+
+    <h1>Dog Details</h1>
+
+    
+
+
+    <% if(user.userRole === 'dog'){ %> 
+
+        
+         <h3>Name: <%= profile.name %></h3> 
+         <a href="/userprofile/dog/<%= profile._id %>/edit"> Edit Profile</a>
+         <p>Breed: <%= profile.breed %></p>
+         <p>Age: <%= profile.age %></p>
+         <p>Personality: <%= profile.personality %></p>
+         <p>Size: <%= profile.size %></p>
+         <p>Description: <%= profile.descriptionOwner %></p>
+         
+
+         
+        <% }else{ %>
+         <a href="/userprofile/edit">Edit Profile</a>
+         <p>Full Name: <%= profile.firstName %> <%= profile.lastName %></p>
+         <p>Walker License No.: <%= profile.walkerLicenseNo %></p>
+         <p>Description: <%= profile.description %></p>
+
+        <% }%>
+      
+        <form action="/userprofile/dog/<%= profile._id %>/delete?_method=DELETE" method="POST">
+             <button type="submit">Delete This Dog</button>
+        </form>
+
+</body>
+</html>

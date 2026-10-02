@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Dog Walker</title>
+</head>
+
+<body>
+
+    <h1>Request a Dog Walker</h1>
+
+    <p>Select the dog or dogs that need a walk:</p>
+
+    <form action="/walks/request" method="POST">
+
+        <% dogs.forEach(dog => { %>
+
+            <div>
+                <input
+                    type="checkbox"
+                    id="dog-<%= dog._id %>"
+                    name="dogs"
+                    value="<%= dog._id %>"
+                >
+
+                <label for="dog-<%= dog._id %>">
+                    <%= dog.name %>
+                </label>
+            </div>
+
+        <% }) %>
+
+        <br>
+
+        <button type="submit">
+            Request a Dog Walker
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/userprofile/add-dog">
+        <button type="button">
+            Add a Dog
+        </button>
+    </a>
+
+    <br><br>
+
+    <a href="/">Cancel</a>
+
+</body>
+</html>

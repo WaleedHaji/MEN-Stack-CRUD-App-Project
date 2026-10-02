@@ -9,7 +9,7 @@ const isSignedIn = require('../middleware/is-signed-in.js')
 router.get('/', isSignedIn,async (req,res)=>{
     let profile
     if(req.session.user.userRole == 'dog'){
-        profile = await DogOwner.findOne({owner: req.session.user._id})
+        profile = await DogOwner.find   ({owner: req.session.user._id, isDeleted: false})
 
     }
     else{
@@ -19,40 +19,73 @@ router.get('/', isSignedIn,async (req,res)=>{
     res.render('profiles/userProfile.ejs',{profile, user:req.session.user})
 })
 
-router.get('/edit', isSignedIn, async (req, res) => {
+
+router.get('/dog/:dogId', isSignedIn, async (req, res) => {
+
     let profile
-    if(req.session.user.userRole == 'dog'){
-        profile = await DogOwner.findOne({owner: req.session.user._id})
-    }
-    else{
-        profile = await DogWalker.findOne({owner: req.session.user._id})
-    }
+    
+        profile = await DogOwner.findOne({_id: req.params.dogId, owner: req.session.user._id})
+    
+
+    res.render('profiles/profile-details.ejs', {
+        profile,
+        user: req.session.user
+    })
+})
+
+
+
+router.get('/dog/:dogId/edit', isSignedIn, async (req, res) => {
+    let profile
+        profile = await DogOwner.findOne({
+        _id: req.params.dogId,
+        owner: req.session.user._id
+    })
+    
 
     res.render('profiles/update-profile.ejs', {profile, user:req.session.user})
+})
+
+router.get('/edit', isSignedIn, async (req, res) => {
+    let profile
+        profile = await DogWalker.findOne({owner: req.session.user._id})
+    
+
+    res.render('profiles/update-profile.ejs', {profile, user:req.session.user})
+})
+
+
+
+router.put('/dog/:dogId/edit', isSignedIn, async (req, res) => {
+
+    let profile
+    
+        profile = await DogOwner.findOneAndUpdate(
+        {
+            _id: req.params.dogId,
+            owner: req.session.user._id
+        },
+        {
+            name: req.body.name,
+            breed: req.body.breed,
+            age: req.body.age,
+            personality: req.body.personality,
+            size: req.body.size,
+            descriptionOwner: req.body.descriptionOwner
+        },
+        { new: true }
+    )
+
+
+    console.log('UPDATED PROFILE:', profile)
+
+    res.redirect('/userprofile')
 })
 
 
 router.put('/edit', isSignedIn, async (req, res) => {
 
     let profile
-
-    if (req.session.user.userRole === 'dog') {
-
-        profile = await DogOwner.findOneAndUpdate(
-            { owner: req.session.user._id },
-            {
-                name: req.body.name,
-                breed: req.body.breed,
-                age: req.body.age,
-                personality: req.body.personality,
-                size: req.body.size,
-                descriptionOwner: req.body.descriptionOwner
-            },
-            { new: true }
-        )
-
-    } else {
-
         profile = await DogWalker.findOneAndUpdate(
             { owner: req.session.user._id },
             {
@@ -62,8 +95,7 @@ router.put('/edit', isSignedIn, async (req, res) => {
             },
             { new: true }
         )
-    }
-
+    
     console.log('UPDATED PROFILE:', profile)
 
     res.redirect('/userprofile')
@@ -82,7 +114,7 @@ router.delete('/delete', isSignedIn, async (req, res) => {
    
     if (req.session.user.userRole === 'dog') {
 
-        await DogOwner.findOneAndUpdate(
+        await DogOwner.updateMany(
             { owner: userId },
             { isDeleted: true }
         )
@@ -104,5 +136,48 @@ router.delete('/delete', isSignedIn, async (req, res) => {
     })
 })
 
+
+router.delete('/dog/:dogId/delete', isSignedIn, async (req, res) => {
+
+    const deletedDog = await DogOwner.findOneAndUpdate(
+        {
+            _id: req.params.dogId,
+            owner: req.session.user._id
+        },
+        {
+            isDeleted: true
+        },
+        {
+            new: true
+        }
+    )
+
+    if (!deletedDog) {
+        return res.send('Dog not found.')
+    }
+
+    res.redirect('/userprofile')
+})
+
+
+router.get('/add-dog', isSignedIn, (req, res) => {
+    res.render('profiles/add-dog.ejs');
+});
+
+
+router.post('/add-dog', isSignedIn, async (req, res) => {
+
+    await DogOwner.create({
+        name: req.body.name,
+        breed: req.body.breed,
+        age: req.body.age,
+        personality: req.body.personality,
+        size: req.body.size,
+        descriptionOwner: req.body.descriptionOwner,
+        owner: req.session.user._id
+    });
+
+    res.redirect('/userprofile');
+}); 
 
 module.exports = router;

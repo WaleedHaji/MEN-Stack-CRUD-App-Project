@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,91 +7,125 @@
     <title>Edit Profile</title>
 </head>
 <body>
-    <%- include('../partials/navbar') %>
-    
-    <h1>Edit profile</h1>
-    
-     <form action="/userprofile/edit?_method=PUT" method="POST">
 
-    
-      <% if (user.userRole === 'dog') { %>
 
-    <div id="owner-form">
-        <label for="nameInput">Name:</label>
-        <input id="nameInput" name="name" type="text" value="<%= profile.name || '' %>">
+<%- include('../partials/navbar') %>
 
-        <label for="breedInput">Breed:</label>
-        <input id="breedInput" name="breed" type="text" value="<%= profile.breed || '' %>">
+<h1>Edit Profile</h1>
 
-        <label for="ageInput">Age:</label>
-        <input id="ageInput" name="age" type="number" value="<%= profile.age || '' %>">
+<% if (user.userRole === 'dog') { %>
 
-        <label for="personalityInput">Personality:</label>
-        <select name="personality" id="personalityInput">
-            <option value="friendly" <%= profile.personality === 'friendly' ? 'selected' : '' %>>Friendly</option>
-            <option value="shy" <%= profile.personality === 'shy' ? 'selected' : '' %>>Shy</option>
-            <option value="aggressive" <%= profile.personality === 'aggressive' ? 'selected' : '' %>>Aggressive</option>
-            <option value="neutral" <%= profile.personality === 'neutral' ? 'selected' : '' %>>Neutral</option>
-            <option value="hyper" <%= profile.personality === 'hyper' ? 'selected' : '' %>>Hyper</option>
-        </select>
+    <form action="/userprofile/dog/<%= profile._id %>/edit?_method=PUT" method="POST">
 
-        <label for="sizeInput">Size:</label>
-        <select name="size" id="sizeInput">
-            <option value="small" <%= profile.size === 'small' ? 'selected' : '' %>>Small</option>
-            <option value="medium" <%= profile.size === 'medium' ? 'selected' : '' %>>Medium</option>
-            <option value="large" <%= profile.size === 'large' ? 'selected' : '' %>>Large</option>
-        </select>
+        <div id="owner-form">
 
-        <label for="descriptionInput">Description:</label>
-        <input
-            id="descriptionInput"
-            name="descriptionOwner"
-            type="text"
-            value="<%= profile.descriptionOwner || '' %>"
-        >
-    </div>
+            <label for="nameInput">Name:</label>
+            <input
+                id="nameInput"
+                name="name"
+                type="text"
+                value="<%= profile.name || '' %>"
+            >
+
+            <label for="breedInput">Breed:</label>
+            <input
+                id="breedInput"
+                name="breed"
+                type="text"
+                value="<%= profile.breed || '' %>"
+            >
+
+            <label for="ageInput">Age:</label>
+            <input
+                id="ageInput"
+                name="age"
+                type="number"
+                value="<%= profile.age || '' %>"
+            >
+
+            <label for="personalityInput">Personality:</label>
+            <select name="personality" id="personalityInput">
+                <option value="friendly" <%= profile.personality === 'friendly' ? 'selected' : '' %>>
+                    Friendly
+                </option>
+                <option value="shy" <%= profile.personality === 'shy' ? 'selected' : '' %>>
+                    Shy
+                </option>
+                <option value="aggressive" <%= profile.personality === 'aggressive' ? 'selected' : '' %>>
+                    Aggressive
+                </option>
+                <option value="neutral" <%= profile.personality === 'neutral' ? 'selected' : '' %>>
+                    Neutral
+                </option>
+                <option value="hyper" <%= profile.personality === 'hyper' ? 'selected' : '' %>>
+                    Hyper
+                </option>
+            </select>
+
+            <label for="sizeInput">Size:</label>
+            <select name="size" id="sizeInput">
+                <option value="small" <%= profile.size === 'small' ? 'selected' : '' %>>
+                    Small
+                </option>
+                <option value="medium" <%= profile.size === 'medium' ? 'selected' : '' %>>
+                    Medium
+                </option>
+                <option value="large" <%= profile.size === 'large' ? 'selected' : '' %>>
+                    Large
+                </option>
+            </select>
+
+            <label for="descriptionInput">Description:</label>
+            <input
+                id="descriptionInput"
+                name="descriptionOwner"
+                type="text"
+                value="<%= profile.descriptionOwner || '' %>"
+            >
+
+        </div>
+
+        <button type="submit">Save Changes</button>
+
+    </form>
 
 <% } else if (user.userRole === 'dogWalker') { %>
 
-    <div id="walker-form">
-        <label for="firstNameInput">First Name:</label>
-        <input
-            id="firstNameInput"
-            name="firstName"
-            type="text"
-            value="<%= profile.firstName || '' %>"
-        >
+    <form action="/userprofile/edit?_method=PUT" method="POST">
 
-        <label for="lastNameInput">Last Name:</label>
-        <input
-            id="lastNameInput"
-            name="lastName"
-            type="text"
-            value="<%= profile.lastName || '' %>"
-        >
+        <div id="walker-form">
 
-        <label for="descriptionInput">Description:</label>
-        <input
-            id="descriptionInput"
-            name="description"
-            type="text"
-            value="<%= profile.description || ''  %>"
-        >
+            <label for="firstNameInput">First Name:</label>
+            <input
+                id="firstNameInput"
+                name="firstName"
+                type="text"
+                value="<%= profile.firstName || '' %>"
+            >
 
-    </div>
+            <label for="lastNameInput">Last Name:</label>
+            <input
+                id="lastNameInput"
+                name="lastName"
+                type="text"
+                value="<%= profile.lastName || '' %>"
+            >
+
+            <label for="descriptionInput">Description:</label>
+            <input
+                id="descriptionInput"
+                name="description"
+                type="text"
+                value="<%= profile.description || '' %>"
+            >
+
+        </div>
+
+        <button type="submit">Save Changes</button>
+
+    </form>
 
 <% } %>
-
-        <button>Save Changes</button>
-        
-
-    </form>
-
-
-    <form action="/userprofile/delete?_method=DELETE" method="POST">
-        <button type="submit">Delete Account</button>
-    </form>
-
 
 
 </body>
