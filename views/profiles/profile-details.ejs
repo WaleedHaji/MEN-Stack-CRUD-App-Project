@@ -9,13 +9,13 @@
     
     <%- include('../partials/navbar') %>
 
-    <h1>Dog Details</h1>
+    
 
     
 
 
     <% if(user.userRole === 'dog'){ %> 
-
+        <h1>Dog Details</h1>
         
          <h3>Name: <%= profile.name %></h3> 
          <a href="/userprofile/dog/<%= profile._id %>/edit"> Edit Profile</a>
@@ -28,6 +28,8 @@
 
          
         <% }else{ %>
+
+            <h1>Walker Details</h1>
          <a href="/userprofile/edit">Edit Profile</a>
          <p>Full Name: <%= profile.firstName %> <%= profile.lastName %></p>
          <p>Walker License No.: <%= profile.walkerLicenseNo %></p>
