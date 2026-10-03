@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walk Requests</title>
+</head>
+<body>
+
+```
+<%- include('../partials/navbar') %>
+
+<h1>Walk Requests</h1>
+
+
+<% if (user.userRole === 'dog') { %>
+
+    <h2>My Walk Requests</h2>
+
+    <a href="/walks/request">
+        Request a New Walk
+    </a>
+
+    <br><br>
+
+    <% if (requests.length === 0) { %>
+
+        <p>You don't have any walk requests yet.</p>
+
+    <% } else { %>
+
+        <% requests.forEach(function(request) { %>
+
+            <div>
+
+                <hr>
+
+                <h3>Walk Request</h3>
+
+                <p>
+                    <strong>Walker:</strong>
+                    <%= request.walker.username %>
+                </p>
+
+                <p>
+                    <strong>Dogs:</strong>
+                </p>
+
+                <ul>
+                    <% request.dogs.forEach(function(dog) { %>
+                        <li><%= dog.name %></li>
+                    <% }) %>
+                </ul>
+
+                <p>
+                    <strong>Duration:</strong>
+                    <%= request.duration %> minutes
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= request.status %>
+                </p>
+
+                <% if (request.status === 'pending') { %>
+
+                    <form
+                        action="/walks/<%= request._id %>/cancel?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Cancel Request
+                        </button>
+                    </form>
+
+                <% } %>
+
+                <% if (request.status === 'accepted') { %>
+
+                    <form
+                        action="/walks/<%= request._id %>/cancel?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Cancel Walk
+                        </button>
+                    </form>
+
+                <% } %>
+
+            </div>
+
+        <% }) %>
+
+    <% } %>
+
+
+<% } else { %>
+
+
+    <h2>Walk Requests</h2>
+
+    <% if (requests.length === 0) { %>
+
+        <p>You don't have any walk requests yet.</p>
+
+    <% } else { %>
+
+        <% requests.forEach(function(request) { %>
+
+            <div>
+
+                <hr>
+
+                <h3>Walk Request</h3>
+
+                <p>
+                    <strong>Owner:</strong>
+                    <%= request.owner.username %>
+                </p>
+
+                <p>
+                    <strong>Dogs:</strong>
+                </p>
+
+                <ul>
+                    <% request.dogs.forEach(function(dog) { %>
+                        <li><%= dog.name %></li>
+                    <% }) %>
+                </ul>
+
+                <p>
+                    <strong>Duration:</strong>
+                    <%= request.duration %> minutes
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <%= request.status %>
+                </p>
+
+
+                <% if (request.status === 'pending') { %>
+
+                    <form
+                        action="/walks/<%= request._id %>/accept?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Accept Walk
+                        </button>
+                    </form>
+
+                    <form
+                        action="/walks/<%= request._id %>/cancel?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Cancel Request
+                        </button>
+                    </form>
+
+                <% } %>
+
+
+                <% if (request.status === 'accepted') { %>
+
+                    <form
+                        action="/walks/<%= request._id %>/complete?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Complete Walk
+                        </button>
+                    </form>
+
+                    <form
+                        action="/walks/<%= request._id %>/cancel?_method=PUT"
+                        method="POST"
+                    >
+                        <button type="submit">
+                            Cancel Walk
+                        </button>
+                    </form>
+
+                <% } %>
+
+            </div>
+
+        <% }) %>
+
+    <% } %>
+
+<% } %>
+```
+
+</body>
+</html>

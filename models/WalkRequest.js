@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const walkRequestSchema = new mongoose.Schema({
+
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -13,50 +14,25 @@ const walkRequestSchema = new mongoose.Schema({
         required: true
     }],
 
-    location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-            default: 'Point'
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        }
+    walker: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+
+    duration: {
+        type: Number,
+        required: true,
+        min: 15
     },
 
     status: {
         type: String,
-        enum: [
-            'pending',
-            'accepted',
-            'completed',
-            'cancelled'
-        ],
+        enum: ['pending', 'accepted', 'completed', 'cancelled'],
         default: 'pending'
-    },
-
-    walker: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        default: null
-    },
-
-    status: {
-    type: String,
-    enum: [
-        'pending',
-        'accepted',
-        'inProgress',
-        'completed',
-        'cancelled'
-    ],
-    default: 'pending'
-}
+    }
 
 }, { timestamps: true })
-
-walkRequestSchema.index({ location: '2dsphere' })
 
 const WalkRequest = mongoose.model('WalkRequest', walkRequestSchema)
 

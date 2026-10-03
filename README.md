@@ -1,13 +1,6 @@
-# Woof App
+# Woof Walker App
 
-## Technologies Used
-1. EJS
-2. CSS
-3. Javascript
-4. Node
-5. MongoDB
-
-## Description
+## Overview
 Woof is an application for Dog Owners and Dog Lovers 🐶 Providing dog
 walking services, foster care, booking for grooming appointments, finding products for pet care and treats! 
 
@@ -18,6 +11,21 @@ achieve their daily steps 🐕... or should I say daily paws 🐾
 It would also include the Kingdom's finest forster care takers, groomers which the user may book an appointment with their shop through the app. A store displaying pet care items and treats. 
 
 (due to the time constraint of the project deadline, I will only have the user, dog walker profile and the dog walker review models)
+
+## Screenshots
+![alt text](<"image-name".png>)
+
+## Technologies Used
+1. EJS
+2. CSS
+3. Javascript
+4. Node
+5. MongoDB
+
+
+## Getting Started
+
+
 
 ## User Stories
 1. As a user, I want to create a profile for my dog to show their personality, age, size, requirements, description.
@@ -31,8 +39,54 @@ It would also include the Kingdom's finest forster care takers, groomers which t
 5. AAU, I want to leave a review on the walkers profile.
 
 
-## Screenshots
-![alt text](<"image-name".png>)
+## Database Design
+
+## Routes
+
+### Profile Routes
+
+| Method | Route                            | Description                    |
+
+| GET    | `/userprofile/`                  | Displays the current user's profile. Dog owners see their dogs, while dog walkers see their walker profile. |
+
+| GET    | `/userprofile/dog/:dogId`        | Displays the details of a specific dog belonging to the signed-in user.                                     |
+
+| GET    | `/userprofile/dog/:dogId/edit`   | Displays the edit form for a specific dog.                                                                  |
+
+| GET    | `/userprofile/edit`              | Displays the edit form for the signed-in dog walker.                                                        |
+
+| PUT    | `/userprofile/dog/:dogId/edit`   | Updates the details of a specific dog belonging to the signed-in user.                                      |
+
+| PUT    | `/userprofile/edit`              | Updates the signed-in dog walker's profile information.                                                     |
+
+| DELETE | `/userprofile/delete`            | Soft-deletes the user's account and their associated profile/dogs, then destroys the session.               |
+
+| DELETE | `/userprofile/dog/:dogId/delete` | Soft-deletes a specific dog belonging to the signed-in user.                                                |
+
+| GET    | `/userprofile/add-dog`           | Displays the form for adding a new dog.                                                                     |
+
+| POST   | `/userprofile/add-dog`           | Creates a new dog profile and associates it with the signed-in user.                                        |
+
+
+
+### Walk Routes
+
+| Method | Route                        | Description                        |
+
+| GET    | `/walks/`                    | Displays the walk requests for the signed-in user. Dog owners see requests they created, while dog walkers see requests assigned to them. |
+
+| GET    | `/walks/request`             | Displays the form for creating a new walk request, including the user's available dogs and available dog walkers.                         |
+
+| POST   | `/walks/request`             | Creates a new walk request using the selected dogs, walker, duration, and signed-in user's ID.                                            |
+
+| PUT    | `/walks/:requestId/accept`   | Allows the assigned dog walker to accept a pending walk request.                                                                          |
+
+| PUT    | `/walks/:requestId/complete` | Allows the assigned dog walker to mark an accepted walk request as completed.                                                             |
+
+| PUT    | `/walks/:requestId/cancel`   | Allows the dog owner or assigned dog walker to cancel a pending or accepted walk request.                                                 |
+
+## Features
+
 
 ## Future Enhancements
 
@@ -41,3 +95,6 @@ It would also include the Kingdom's finest forster care takers, groomers which t
 
 ## Credits
 
+1. Omar Kamal
+2. w3school
+3. Bootstrap

@@ -1,20 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request a Dog Walker</title>
+    <title>Request a Walk</title>
 </head>
-
 <body>
 
-    <h1>Request a Dog Walker</h1>
 
-    <p>Select the dog or dogs that need a walk:</p>
+<%- include('../partials/navbar') %>
 
-    <form action="/walks/request" method="POST">
+<h1>Request a Dog Walk</h1>
 
-        <% dogs.forEach(dog => { %>
+<form action="/walks/request" method="POST">
+
+    <h2>Choose your dogs</h2>
+
+    <% if (dogs.length === 0) { %>
+
+        <p>You don't have any dogs yet.</p>
+
+        <a href="/userprofile/add-dog">
+            Add a Dog
+        </a>
+
+    <% } else { %>
+
+        <% for (dog of dogs) { %>
 
             <div>
                 <input
@@ -29,27 +42,82 @@
                 </label>
             </div>
 
+        <% } %>
+
+    <% } %>
+
+
+    <h2>Choose a Walker</h2>
+
+    <% if (walkers.length === 0) { %>
+
+        <p>There are currently no Walkers available.</p>
+
+    <% } else { %>
+
+        <% walkers.forEach(function(walker) { %>
+
+            <div>
+                <input
+                    type="radio"
+                    id="walker-<%= walker.owner._id %>"
+                    name="walker"
+                    value="<%= walker.owner._id %>"
+                    required
+                >
+
+                <label for="walker-<%= walker.owner._id %>">
+                    <%= walker.firstName %> <%= walker.lastName %>
+                </label>
+
+                <% if (walker.description) { %>
+                    <p><%= walker.description %></p>
+                <% } %>
+
+            </div>
+
         <% }) %>
 
-        <br>
+    <% } %>
 
-        <button type="submit">
-            Request a Dog Walker
-        </button>
 
-    </form>
+    <h2>Walk Duration</h2>
 
-    <br>
+    <select name="duration" required>
 
-    <a href="/userprofile/add-dog">
-        <button type="button">
-            Add a Dog
-        </button>
-    </a>
+        <option value="">Choose a duration</option>
+
+        <option value="15">
+            15 minutes
+        </option>
+
+        <option value="30">
+            30 minutes
+        </option>
+
+        <option value="45">
+            45 minutes
+        </option>
+
+        <option value="60">
+            1 hour
+        </option>
+
+        <option value="90">
+            1 hour 30 minutes
+        </option>
+
+    </select>
+
 
     <br><br>
 
-    <a href="/">Cancel</a>
+    <button type="submit">
+        Request Walk
+    </button>
+
+</form>
+
 
 </body>
 </html>

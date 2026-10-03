@@ -14,13 +14,16 @@
         </li>
           <% if(user.userRole === 'dog'){ %> 
              <li class="nav-item">
-             <a class="nav-link" href="/userprofile">View Dogs</a>
-            </li>
+                <a class="nav-link" href="/userprofile">View Dogs</a>
+              </li>
          <% }else{ %>
             <li class="nav-item">
              <a class="nav-link" href="/userprofile">View Profile</a>
            </li>
          <% } %>
+         <li class="nav-item">
+            <a class="nav-link" href="/walks">Walk Requests</a>
+         </li>
          <li class="nav-item">
            <a class="nav-link" href="/auth/sign-out">Logout</a>
          </li>
