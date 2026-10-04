@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <title>Profile</title>
 </head>
 <body>
@@ -17,30 +18,31 @@
     <% if(user.userRole === 'dog'){ %> 
 
         <% for( oneDog of profile ) { %>
-    
+            <div class="dogBox">
          <h3>Name: <%= oneDog.name %></h3> 
          <a href="/userprofile/dog/<%= oneDog._id %>">View details</a>
          <p>Breed: <%= oneDog.breed %></p>
          <p>Age: <%= oneDog.age %></p>
-         
+            </div>
          <% } %>
 
         <a href="/userprofile/add-dog">
-            <button type="button">Add a Dog</button>
+            <button class="addDogButton" type="button">Add a Dog</button>
         </a>
          
          
         <% }else{ %>
+            <div class="walkerBox">
          <a href="/userprofile/edit">Edit Profile</a>
          <p>Full Name: <%= profile.firstName %> <%= profile.lastName %></p>
          <p>Walker License No.: <%= profile.walkerLicenseNo %></p>
          <p>Description: <%= profile.description %></p>
-
+            </div>
         <% }%>
       
         <br><br>
         <form action="/userprofile/delete?_method=DELETE" method="POST">
-            <button type="submit">Delete Entire Account</button>
+            <button class="deleteAccButton" type="submit">Delete Entire Account</button>
         </form>
 
 </body>

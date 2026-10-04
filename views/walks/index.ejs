@@ -4,12 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <title>Walk Requests</title>
 </head>
 <body>
 
-```
+    <% if (toast) { %>
+    <div class="toast">
+        <%= toast.message %>
+    </div>
+<% } %>
+<script>
+    setTimeout(() => {
+        const toast = document.querySelector('.toast');
+
+        if (toast) {
+            toast.remove();
+        }
+    }, 3000);
+</script>
+
 <%- include('../partials/navbar') %>
+
 
 <h1>Walk Requests</h1>
 
@@ -193,7 +209,7 @@
     <% } %>
 
 <% } %>
-```
+
 
 </body>
 </html>

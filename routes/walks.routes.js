@@ -53,7 +53,7 @@ router.get('/request', isSignedIn, async (req, res) => {
 })
 
 
-router.post('/request', isSignedIn, async (req, res) => {
+router.post('/request', isSignedIn, async (req, res, next) => {
 
     const selectedDogs = Array.isArray(req.body.dogs)
         ? req.body.dogs
@@ -67,36 +67,14 @@ router.post('/request', isSignedIn, async (req, res) => {
         status: 'pending'
     })
 
+    req.session.toast = {
+        message: 'Walk request sent successfully!',
+        type: 'success'
+    }
+
     res.redirect('/walks')
 })
 
-
-router.get('/', isSignedIn, async (req, res) => {
-
-    let requests
-
-    if (req.session.user.userRole === 'dog') {
-
-        requests = await WalkRequest.find({
-            owner: req.session.user._id
-        })
-        .populate('dogs')
-        .populate('walker')
-
-    } else {
-
-        requests = await WalkRequest.find({
-            walker: req.session.user._id
-        })
-        .populate('dogs')
-        .populate('owner')
-    }
-
-    res.render('walks/index.ejs', {
-        requests,
-        user: req.session.user
-    })
-})
 
 
 router.put('/:requestId/accept', isSignedIn, async (req, res) => {
