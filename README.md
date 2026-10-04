@@ -13,7 +13,19 @@ It would also include the Kingdom's finest forster care takers, groomers which t
 (due to the time constraint of the project deadline, I will only have the user, dog walker profile and the dog walker review models)
 
 ## Screenshots
-![alt text](<"image-name".png>)
+![alt text](Screenshots/home%20page%20(sign%20up%20and%20login).png)
+![alt text](Screenshots/sign%20up%20page.png)
+![alt text](Screenshots/login%20page.png)
+![alt text](Screenshots/Dog%20Owner%20Login.png)
+![alt text](Screenshots/View%20Dogs%20page.png)
+![alt text](Screenshots/Dog%20details%20page.png)
+![alt text](Screenshots/add%20dogpage.png)
+![alt text](Screenshots/Walk%20Request%20Page.png)
+![alt text](Screenshots/Walk%20Request%20form%20Page.png)
+![alt text](Screenshots/Dog%20Walker%20Homepage.png)
+![alt text](Screenshots/Dog%20Walker%20Profile%20page.png)
+![alt text](Screenshots/Dog%20Walker%20Walk%20Requests%20page.png)
+
 
 ## Technologies Used
 1. EJS
@@ -41,8 +53,9 @@ It would also include the Kingdom's finest forster care takers, groomers which t
 
 ## Database Design
 
-## Routes
 
+
+## Routes
 ### Profile Routes
 
 | Method | Route                            | Description                    |
@@ -89,7 +102,14 @@ It would also include the Kingdom's finest forster care takers, groomers which t
 
 
 ## Future Enhancements
-
+There are many things I would love to add to the application
+1. Live Tracking of the walk
+2. Uber style notification request for walks
+3. Specific time scheduled walk requests
+4. in-app payment system
+5. add features
+6. add fostering services
+7. pet stores
 
 
 
